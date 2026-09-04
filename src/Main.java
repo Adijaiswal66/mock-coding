@@ -26,6 +26,9 @@ public class Main {
             double bonus = 0.00;
             if (isEligibleForBonus) {
                 bonus = calculateBonus(employee.getSalary(), employee.getRating());
+                if (employee.getYearsOfExperience() >= 5) {
+                    bonus += 25000;
+                }
             }
             System.out.println("Department: " + employee.getDepartment() + " entity.Employee with ID: " + employee.getEmployeeId() + "-> Salary " + employee.getSalary() + ", Rating: " + employee.getRating() + "Eligible: " + isEligibleForBonus + ", Bonus: " + bonus);
 
