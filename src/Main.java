@@ -23,10 +23,11 @@ public class Main {
 
         for (Employee employee : employees) {
             boolean isEligibleForBonus = checkEligibilityForBonus(employee.getSalary(), employee.getRating());
+            boolean isEligibleForExperienceBonus = calculateExperienceBonus(employee);
             double bonus = 0.00;
             if (isEligibleForBonus) {
                 bonus = calculateBonus(employee.getSalary(), employee.getRating());
-                if (employee.getYearsOfExperience() >= 5) {
+                if (isEligibleForExperienceBonus) {
                     bonus += 25000;
                 }
             }

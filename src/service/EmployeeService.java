@@ -47,4 +47,8 @@ public class EmployeeService {
         }
     }
 
+    public static boolean calculateExperienceBonus(Employee employee) {
+        return employee.getYearsOfExperience() >= 5;
+    }
+
 }
