@@ -39,9 +39,19 @@ public class EmployeeService {
         return totalBonus;
     }
 
-//    public static boolean checkEligibilityForBonus(double salary, int rating) {
-//        return (salary >= 400000) && (rating >= 3);
-//    }
+    public static void getEmployeeById(long employeeId, Employee[] employees) {
+        boolean foundEmployee = false;
+        for (Employee employee : employees) {
+            if (employee.getEmployeeId() == employeeId) {
+                System.out.println("Found employee: " + employee);
+                foundEmployee = true;
+            }
+        }
+        if (!foundEmployee) {
+            System.out.println("Unable to found employee with id: " + employeeId);
+        }
+    }
+
 
     public static Employee findHighestPaidEmployee(Employee[] employees) {
         Employee maxSalaryEmp = employees[0];
