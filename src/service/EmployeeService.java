@@ -7,7 +7,7 @@ public class EmployeeService {
     public static void calculateTotalBonus(Employee employee) {
         double annualSalary = employee.getSalary();
         int rating = employee.getRating();
-        boolean yearsOfExperience = employee.getYearsOfExperience() > 5;
+        boolean yearsOfExperience = employee.getYearsOfExperience() >= 5;
         boolean isEligibleForBonus = (annualSalary >= 400000) && (rating >= 3);
         double bonus = 0;
 

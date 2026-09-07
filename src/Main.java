@@ -23,7 +23,7 @@ public class Main {
         for (Employee employee : employees) {
             calculateTotalBonus(employee);
             if (employee.getDepartment().equals("IT")) {
-                totalBonusOfITDepartment = totalBonusOfSelectedDepartment("IT", employee);
+                totalBonusOfITDepartment += totalBonusOfSelectedDepartment("IT", employee);
             }
         }
 
