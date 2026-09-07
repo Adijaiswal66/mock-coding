@@ -4,25 +4,44 @@ import entity.Employee;
 
 public class EmployeeService {
 
-    public static double calculateBonus(double annualSalary, int rating) {
+    public static void calculateTotalBonus(Employee employee) {
+        double annualSalary = employee.getSalary();
+        int rating = employee.getRating();
+        boolean yearsOfExperience = employee.getYearsOfExperience() > 5;
+        boolean isEligibleForBonus = (annualSalary >= 400000) && (rating >= 3);
         double bonus = 0;
-        if (rating == 5) {
-            bonus = annualSalary * 0.20;
-        } else if (rating == 4) {
-            bonus = annualSalary * 0.15;
-        } else if (rating == 3) {
-            bonus = annualSalary * .10;
-        } else if (rating == 2) {
-            bonus = annualSalary * 0.05;
-        } else {
-            System.out.println("Invalid rating");
+
+        if (isEligibleForBonus) {
+            if (rating == 5) {
+                bonus = annualSalary * 0.20;
+            } else if (rating == 4) {
+                bonus = annualSalary * 0.15;
+            } else if (rating == 3) {
+                bonus = annualSalary * .10;
+            } else {
+                System.out.println("Invalid rating");
+            }
+            if (yearsOfExperience) {
+                bonus += 25000;
+            }
         }
-        return bonus;
+        employee.setEmployeeBonus(bonus);
+
+        System.out.println("Department: " + employee.getDepartment() + " Employee with ID: " + employee.getEmployeeId() + "-> Salary " + employee.getSalary() + ", Rating: " + employee.getRating() + "Eligible: " + isEligibleForBonus + ", Bonus: " + bonus);
     }
 
-    public static boolean checkEligibilityForBonus(double salary, int rating) {
-        return (salary >= 400000) && (rating >= 3);
+    public static double totalBonusOfSelectedDepartment(String department, Employee employee) {
+        double totalBonus = 0;
+
+        if (department.equals("IT")) {
+            totalBonus += employee.getEmployeeBonus();
+        }
+        return totalBonus;
     }
+
+//    public static boolean checkEligibilityForBonus(double salary, int rating) {
+//        return (salary >= 400000) && (rating >= 3);
+//    }
 
     public static Employee findHighestPaidEmployee(Employee[] employees) {
         Employee maxSalaryEmp = employees[0];
@@ -45,10 +64,6 @@ public class EmployeeService {
         if (!employeeFound) {
             System.out.println("No employees found !");
         }
-    }
-
-    public static boolean calculateExperienceBonus(Employee employee) {
-        return employee.getYearsOfExperience() >= 5;
     }
 
 }

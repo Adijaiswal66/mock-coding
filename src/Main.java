@@ -18,26 +18,17 @@ public class Main {
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
-        double totalBonus = 0;
-
+        double totalBonusOfITDepartment = 0;
 
         for (Employee employee : employees) {
-            boolean isEligibleForBonus = checkEligibilityForBonus(employee.getSalary(), employee.getRating());
-            boolean isEligibleForExperienceBonus = calculateExperienceBonus(employee);
-            double bonus = 0.00;
-            if (isEligibleForBonus) {
-                bonus = calculateBonus(employee.getSalary(), employee.getRating());
-                if (isEligibleForExperienceBonus) {
-                    bonus += 25000;
-                }
-            }
-            System.out.println("Department: " + employee.getDepartment() + " entity.Employee with ID: " + employee.getEmployeeId() + "-> Salary " + employee.getSalary() + ", Rating: " + employee.getRating() + "Eligible: " + isEligibleForBonus + ", Bonus: " + bonus);
-
+            calculateTotalBonus(employee);
             if (employee.getDepartment().equals("IT")) {
-                totalBonus += bonus;
+                totalBonusOfITDepartment = totalBonusOfSelectedDepartment("IT", employee);
             }
         }
+
         System.out.println(findHighestPaidEmployee(employees));
-        System.out.println("Total bonus of IT department : " + totalBonus);
+
+        System.out.println("Total bonus of IT department : " + totalBonusOfITDepartment);
     }
 }

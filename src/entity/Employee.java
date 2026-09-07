@@ -7,6 +7,7 @@ public class Employee {
     private int rating;
     private String department;
     private int yearsOfExperience;
+    private double employeeBonus;
 
     public Long getEmployeeId() {
         return employeeId;
@@ -54,6 +55,14 @@ public class Employee {
 
     public void setYearsOfExperience(int yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
+    }
+
+    public double getEmployeeBonus() {
+        return employeeBonus;
+    }
+
+    public void setEmployeeBonus(double employeeBonus) {
+        this.employeeBonus = employeeBonus;
     }
 
     public Employee(Long employeeId, String employeeName, double salary, int rating, String department, int yearsOfExperience) {
