@@ -29,6 +29,8 @@ public class Main {
 
         getEmployeeById(19, employees);
 
+        updateEmployeeSalaryByEmployeeId(employees, 2L, 2000);
+
         System.out.println(findHighestPaidEmployee(employees));
 
         System.out.println("Total bonus of IT department : " + totalBonusOfITDepartment);

@@ -45,6 +45,7 @@ public class EmployeeService {
             if (employee.getEmployeeId() == employeeId) {
                 System.out.println("Found employee: " + employee);
                 foundEmployee = true;
+                break;
             }
         }
         if (!foundEmployee) {
@@ -52,6 +53,20 @@ public class EmployeeService {
         }
     }
 
+    public static void updateEmployeeSalaryByEmployeeId(Employee[] employees, long employeeId, double salary) {
+        boolean foundEmployee = false;
+        for (Employee employee : employees) {
+            if (employee.getEmployeeId() == employeeId) {
+                employee.setSalary(salary);
+                System.out.println("Salary updated for employee: " + employee);
+                foundEmployee = true;
+                break;
+            }
+        }
+        if (!foundEmployee) {
+            System.out.println("Unable to found employee with id: " + employeeId);
+        }
+    }
 
     public static Employee findHighestPaidEmployee(Employee[] employees) {
         Employee maxSalaryEmp = employees[0];
@@ -77,3 +92,8 @@ public class EmployeeService {
     }
 
 }
+
+
+
+
+
