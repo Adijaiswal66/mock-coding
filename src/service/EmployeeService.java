@@ -64,18 +64,24 @@ public class EmployeeService {
     }
 
     public static Employee[] removeEmployeeByEmployeeId(long employeeId, Employee[] employees) {
-        int employeeIndex = 0;
+        int employeeIndex = -1;
 
         for (int i = 0; i < employees.length; i++) {
             if (employees[i].getEmployeeId() == employeeId) {
                 employeeIndex = i;
             }
         }
-        for (int i = employeeIndex; i < employees.length - 1; i++) {
-            employees[i] = employees[i + 1];
+        if (employeeIndex != -1) {
+            for (int i = employeeIndex; i < employees.length - 1; i++) {
+                employees[i] = employees[i + 1];
+            }
+            return employees;
+        } else {
+            System.out.println("Employee not found with id: " + employeeId);
+            return employees;
         }
 
-        return employees;
+
     }
 
     public static Employee findHighestPaidEmployee(Employee[] employees) {
