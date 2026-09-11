@@ -1,5 +1,7 @@
 import entity.Employee;
 
+import java.util.Arrays;
+
 import static service.EmployeeService.*;
 
 public class Main {
@@ -27,12 +29,20 @@ public class Main {
             }
         }
 
-        getEmployeeById(19, employees);
 
-        updateEmployeeSalaryByEmployeeId(employees, 2L, 2000);
+        Employee existingEmployee = getEmployeeById(1, employees);
+        if (existingEmployee != null) {
+            System.out.println("Found employee: " + existingEmployee);
+        } else {
+            System.out.println("Unable to find employee with this id");
+        }
 
-        System.out.println(findHighestPaidEmployee(employees));
+        System.out.println(Arrays.toString(removeEmployeeByEmployeeId(2, employees)));
 
-        System.out.println("Total bonus of IT department : " + totalBonusOfITDepartment);
+//        updateEmployeeSalaryByEmployeeId(employees, 2L, 2000);
+//
+//        System.out.println(findHighestPaidEmployee(employees));
+//
+//        System.out.println("Total bonus of IT department : " + totalBonusOfITDepartment);
     }
 }
