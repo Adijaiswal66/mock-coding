@@ -2,6 +2,9 @@ package service;
 
 import entity.Employee;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class EmployeeService {
 
     public static void calculateTotalBonus(Employee employee) {
@@ -105,6 +108,27 @@ public class EmployeeService {
         if (!employeeFound) {
             System.out.println("No employees found !");
         }
+    }
+
+    public static List<HashMap<?, ?>> employeeDepartmentSummary(Employee[] employees) {
+        HashMap<String, Integer> departmentWiseEmployeeCount = new HashMap<>();
+        HashMap<String, Double> departmentWiseTotalSalary = new HashMap<>();
+
+        for (Employee employee : employees) {
+            if (!departmentWiseEmployeeCount.containsKey(employee.getDepartment())) {
+                departmentWiseEmployeeCount.put(employee.getDepartment(), 0);
+            }
+            departmentWiseEmployeeCount.put(employee.getDepartment(), departmentWiseEmployeeCount.get(employee.getDepartment()) + 1);
+
+            if (!departmentWiseTotalSalary.containsKey(employee.getDepartment())) {
+                departmentWiseTotalSalary.put(employee.getDepartment(), 0.00);
+            }
+            departmentWiseTotalSalary.put(employee.getDepartment(), departmentWiseTotalSalary.get(employee.getDepartment()) + employee.getSalary());
+
+
+        }
+        return List.of(departmentWiseEmployeeCount, departmentWiseTotalSalary);
+
     }
 
 }

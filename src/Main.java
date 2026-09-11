@@ -1,8 +1,6 @@
 import entity.Employee;
 
-import java.util.Arrays;
-
-import static service.EmployeeService.*;
+import static service.EmployeeService.employeeDepartmentSummary;
 
 public class Main {
 
@@ -20,29 +18,6 @@ public class Main {
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
-        double totalBonusOfITDepartment = 0;
-
-        for (Employee employee : employees) {
-            calculateTotalBonus(employee);
-            if (employee.getDepartment().equals("IT")) {
-                totalBonusOfITDepartment += totalBonusOfSelectedDepartment("IT", employee);
-            }
-        }
-
-
-        Employee existingEmployee = getEmployeeById(1, employees);
-        if (existingEmployee != null) {
-            System.out.println("Found employee: " + existingEmployee);
-        } else {
-            System.out.println("Unable to find employee with this id");
-        }
-
-        System.out.println(Arrays.toString(removeEmployeeByEmployeeId(2, employees)));
-
-//        updateEmployeeSalaryByEmployeeId(employees, 2L, 2000);
-//
-//        System.out.println(findHighestPaidEmployee(employees));
-//
-//        System.out.println("Total bonus of IT department : " + totalBonusOfITDepartment);
+        System.out.println(employeeDepartmentSummary(employees));
     }
 }
