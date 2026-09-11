@@ -1,9 +1,11 @@
 package service;
 
+import dto.DashboardSummary;
 import entity.Employee;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmployeeService {
 
@@ -110,11 +112,15 @@ public class EmployeeService {
         }
     }
 
-    public static List<HashMap<?, ?>> employeeDepartmentSummary(Employee[] employees) {
-        HashMap<String, Integer> departmentWiseEmployeeCount = new HashMap<>();
-        HashMap<String, Double> departmentWiseTotalSalary = new HashMap<>();
+    public static DashboardSummary employeeDepartmentSummary(Employee[] employees) {
+
+        DashboardSummary dashboardSummary = new DashboardSummary();
+
+        Map<String, Integer> departmentWiseEmployeeCount = new HashMap<>();
+        Map<String, Double> departmentWiseTotalSalary = new HashMap<>();
 
         for (Employee employee : employees) {
+
             if (!departmentWiseEmployeeCount.containsKey(employee.getDepartment())) {
                 departmentWiseEmployeeCount.put(employee.getDepartment(), 0);
             }
@@ -125,9 +131,10 @@ public class EmployeeService {
             }
             departmentWiseTotalSalary.put(employee.getDepartment(), departmentWiseTotalSalary.get(employee.getDepartment()) + employee.getSalary());
 
-
         }
-        return List.of(departmentWiseEmployeeCount, departmentWiseTotalSalary);
+        dashboardSummary.setDepartmentWiseEmployeeCount(departmentWiseEmployeeCount);
+        dashboardSummary.setDepartmentWiseTotalSalary(departmentWiseTotalSalary);
+        return dashboardSummary;
 
     }
 
