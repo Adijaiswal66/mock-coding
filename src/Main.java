@@ -1,6 +1,6 @@
 import entity.Employee;
 
-import static service.EmployeeService.employeeDepartmentSummary;
+import static service.EmployeeService.employeesSalaryStatistics;
 
 public class Main {
 
@@ -18,6 +18,8 @@ public class Main {
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
-        System.out.println(employeeDepartmentSummary(employees));
+
+        System.out.println(employeesSalaryStatistics(employees));
+
     }
 }

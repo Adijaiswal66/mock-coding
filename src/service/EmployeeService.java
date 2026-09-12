@@ -1,8 +1,10 @@
 package service;
 
 import dto.DepartmentSummary;
+import dto.SalaryStatistics;
 import entity.Employee;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,19 +54,14 @@ public class EmployeeService {
         return null;
     }
 
-    public static void updateEmployeeSalaryByEmployeeId(Employee[] employees, long employeeId, double salary) {
-        boolean foundEmployee = false;
+    public static Employee updateEmployeeSalaryByEmployeeId(Employee[] employees, long employeeId, double salary) {
         for (Employee employee : employees) {
             if (employee.getEmployeeId() == employeeId) {
                 employee.setSalary(salary);
-                System.out.println("Salary updated for employee: " + employee);
-                foundEmployee = true;
-                break;
+                return employee;
             }
         }
-        if (!foundEmployee) {
-            System.out.println("Unable to found employee with id: " + employeeId);
-        }
+        return null;
     }
 
     public static Employee[] removeEmployeeByEmployeeId(long employeeId, Employee[] employees) {
@@ -120,6 +117,34 @@ public class EmployeeService {
             summary.setTotalSalary(summary.getTotalSalary() + employee.getSalary());
         }
         return departmentSummary;
+
+    }
+
+    public static SalaryStatistics employeesSalaryStatistics(Employee[] employees) {
+
+        SalaryStatistics salaryStatistics = new SalaryStatistics();
+
+        double totalSalary = 0.00;
+        double lowestSalary = employees[0].getSalary();
+        double highestSalary = employees[0].getSalary();
+
+        for (int i = 0; i < employees.length; i++) {
+            totalSalary += employees[i].getSalary();
+            if (employees[i].getSalary() > highestSalary) {
+                highestSalary = employees[i].getSalary();
+            }
+            if (employees[i].getSalary() < lowestSalary) {
+                lowestSalary = employees[i].getSalary();
+            }
+
+        }
+        salaryStatistics.setTotalSalaryOfAllEmployees(totalSalary);
+        salaryStatistics.setAverageSalaryOfAllEmployees(totalSalary / employees.length);
+        salaryStatistics.setHighestSalary(highestSalary);
+        salaryStatistics.setLowestSalary(lowestSalary);
+
+        return salaryStatistics;
+
 
     }
 
