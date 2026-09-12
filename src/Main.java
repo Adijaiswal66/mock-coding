@@ -22,5 +22,6 @@ public class Main {
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
+        System.out.println(Arrays.toString(employeeSalaryRanking(employees)));
     }
 }

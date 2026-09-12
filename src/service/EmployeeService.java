@@ -150,6 +150,8 @@ public class EmployeeService {
 
     public static Employee[] employeeSalaryRanking(Employee[] employees) {
 
+        if (employees.length == 0) return null;
+
         Employee[] rankedEmployees = employees.clone();
 
         Comparator<Employee> ranking = Comparator.comparingDouble(Employee::getSalary).reversed().thenComparing(Employee::getEmployeeName);
