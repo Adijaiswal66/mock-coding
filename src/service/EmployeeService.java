@@ -112,29 +112,19 @@ public class EmployeeService {
         }
     }
 
-    public static DashboardSummary employeeDepartmentSummary(Employee[] employees) {
+    public static Map<String, DashboardSummary> employeeDepartmentSummary(Employee[] employees) {
 
-        DashboardSummary dashboardSummary = new DashboardSummary();
-
-        Map<String, Integer> departmentWiseEmployeeCount = new HashMap<>();
-        Map<String, Double> departmentWiseTotalSalary = new HashMap<>();
+        Map<String, DashboardSummary> departmentSummary = new HashMap<>();
 
         for (Employee employee : employees) {
 
-            if (!departmentWiseEmployeeCount.containsKey(employee.getDepartment())) {
-                departmentWiseEmployeeCount.put(employee.getDepartment(), 0);
+            if (!departmentSummary.containsKey(employee.getDepartment())) {
+                departmentSummary.put(employee.getDepartment(), new DashboardSummary(0, 0.00));
             }
-            departmentWiseEmployeeCount.put(employee.getDepartment(), departmentWiseEmployeeCount.get(employee.getDepartment()) + 1);
-
-            if (!departmentWiseTotalSalary.containsKey(employee.getDepartment())) {
-                departmentWiseTotalSalary.put(employee.getDepartment(), 0.00);
-            }
-            departmentWiseTotalSalary.put(employee.getDepartment(), departmentWiseTotalSalary.get(employee.getDepartment()) + employee.getSalary());
+            departmentSummary.put(employee.getDepartment(), new DashboardSummary(departmentSummary.get(employee.getDepartment()).getEmployeeCount() + 1, departmentSummary.get(employee.getDepartment()).getEmployeeSalary() + employee.getSalary()));
 
         }
-        dashboardSummary.setDepartmentWiseEmployeeCount(departmentWiseEmployeeCount);
-        dashboardSummary.setDepartmentWiseTotalSalary(departmentWiseTotalSalary);
-        return dashboardSummary;
+        return departmentSummary;
 
     }
 
