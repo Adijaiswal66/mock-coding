@@ -4,10 +4,7 @@ import dto.DepartmentSummary;
 import dto.SalaryStatistics;
 import entity.Employee;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class EmployeeService {
 
@@ -159,6 +156,20 @@ public class EmployeeService {
         Arrays.sort(rankedEmployees, ranking);
 
         return rankedEmployees;
+    }
+
+    public static List<Employee> filterEmployeeByDepartment(Employee[] employees, String department) {
+
+        List<Employee> filteredEmployees = new ArrayList<>();
+
+        for (Employee employee : employees) {
+            if (employee.getDepartment().equals(department)) {
+                filteredEmployees.add(employee);
+            }
+        }
+
+        return filteredEmployees;
+
     }
 
 }

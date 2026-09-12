@@ -2,9 +2,9 @@ import dto.SalaryStatistics;
 import entity.Employee;
 
 import java.util.Arrays;
+import java.util.List;
 
-import static service.EmployeeService.employeeSalaryRanking;
-import static service.EmployeeService.employeesSalaryStatistics;
+import static service.EmployeeService.*;
 
 public class Main {
 
@@ -22,6 +22,12 @@ public class Main {
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
-        System.out.println(Arrays.toString(employeeSalaryRanking(employees)));
+        List<Employee> employeeList = filterEmployeeByDepartment(employees, "IT");
+        if (employeeList.isEmpty()) {
+            System.out.println("No Employee found!");
+        } else {
+            System.out.println(employeeList);
+        }
+
     }
 }

@@ -76,7 +76,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "entity.Employee{" +
+        return "Employee{" +
                 "employeeId=" + employeeId +
                 ", employeeName='" + employeeName + '\'' +
                 ", salary=" + salary +
