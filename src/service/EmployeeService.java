@@ -162,6 +162,8 @@ public class EmployeeService {
 
         List<Employee> filteredEmployees = new ArrayList<>();
 
+        if (department == null) return filteredEmployees;
+
         for (Employee employee : employees) {
             if (employee.getDepartment().equals(department)) {
                 filteredEmployees.add(employee);

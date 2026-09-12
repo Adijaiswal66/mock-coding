@@ -1,10 +1,8 @@
-import dto.SalaryStatistics;
 import entity.Employee;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static service.EmployeeService.*;
+import static service.EmployeeService.filterEmployeeByDepartment;
 
 public class Main {
 
