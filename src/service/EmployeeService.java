@@ -4,7 +4,6 @@ import dto.DepartmentSummary;
 import dto.SalaryStatistics;
 import entity.Employee;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,19 +123,20 @@ public class EmployeeService {
 
         SalaryStatistics salaryStatistics = new SalaryStatistics();
 
+        if (employees.length == 0) return null;
+
         double totalSalary = 0.00;
         double lowestSalary = employees[0].getSalary();
         double highestSalary = employees[0].getSalary();
 
-        for (int i = 0; i < employees.length; i++) {
-            totalSalary += employees[i].getSalary();
-            if (employees[i].getSalary() > highestSalary) {
-                highestSalary = employees[i].getSalary();
+        for (Employee employee : employees) {
+            totalSalary += employee.getSalary();
+            if (employee.getSalary() > highestSalary) {
+                highestSalary = employee.getSalary();
             }
-            if (employees[i].getSalary() < lowestSalary) {
-                lowestSalary = employees[i].getSalary();
+            if (employee.getSalary() < lowestSalary) {
+                lowestSalary = employee.getSalary();
             }
-
         }
         salaryStatistics.setTotalSalaryOfAllEmployees(totalSalary);
         salaryStatistics.setAverageSalaryOfAllEmployees(totalSalary / employees.length);
@@ -144,10 +144,7 @@ public class EmployeeService {
         salaryStatistics.setLowestSalary(lowestSalary);
 
         return salaryStatistics;
-
-
     }
-
 }
 
 

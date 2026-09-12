@@ -7,7 +7,7 @@ public class SalaryStatistics {
     private double lowestSalary;
     private double totalSalaryOfAllEmployees;
 
-    public double isAverageSalaryOfAllEmployees() {
+    public double getAverageSalaryOfAllEmployees() {
         return averageSalaryOfAllEmployees;
     }
 
@@ -15,7 +15,7 @@ public class SalaryStatistics {
         this.averageSalaryOfAllEmployees = averageSalaryOfAllEmployees;
     }
 
-    public double isHighestSalary() {
+    public double getHighestSalary() {
         return highestSalary;
     }
 
@@ -23,7 +23,7 @@ public class SalaryStatistics {
         this.highestSalary = highestSalary;
     }
 
-    public double isLowestSalary() {
+    public double getLowestSalary() {
         return lowestSalary;
     }
 
@@ -31,13 +31,14 @@ public class SalaryStatistics {
         this.lowestSalary = lowestSalary;
     }
 
-    public double isTotalSalaryOfAllEmployees() {
+    public double getTotalSalaryOfAllEmployees() {
         return totalSalaryOfAllEmployees;
     }
 
     public void setTotalSalaryOfAllEmployees(double totalSalaryOfAllEmployees) {
         this.totalSalaryOfAllEmployees = totalSalaryOfAllEmployees;
     }
+
 
     @Override
     public String toString() {

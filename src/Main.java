@@ -1,3 +1,4 @@
+import dto.SalaryStatistics;
 import entity.Employee;
 
 import static service.EmployeeService.employeesSalaryStatistics;
@@ -18,8 +19,12 @@ public class Main {
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
-
-        System.out.println(employeesSalaryStatistics(employees));
+        SalaryStatistics salaryStatistics = employeesSalaryStatistics(employees);
+        if (salaryStatistics != null) {
+            System.out.println(employeesSalaryStatistics(employees));
+        } else {
+            System.out.println("No Employee found !");
+        }
 
     }
 }
