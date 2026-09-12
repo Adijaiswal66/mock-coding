@@ -1,6 +1,9 @@
 import dto.SalaryStatistics;
 import entity.Employee;
 
+import java.util.Arrays;
+
+import static service.EmployeeService.employeeSalaryRanking;
 import static service.EmployeeService.employeesSalaryStatistics;
 
 public class Main {
@@ -18,13 +21,6 @@ public class Main {
         Employee employee5 = new Employee(5L, "Sneha", 1000000, 5, "IT", 7);
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
-
-        SalaryStatistics salaryStatistics = employeesSalaryStatistics(employees);
-        if (salaryStatistics != null) {
-            System.out.println(employeesSalaryStatistics(employees));
-        } else {
-            System.out.println("No Employee found !");
-        }
 
     }
 }

@@ -4,6 +4,8 @@ import dto.DepartmentSummary;
 import dto.SalaryStatistics;
 import entity.Employee;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -145,6 +147,18 @@ public class EmployeeService {
 
         return salaryStatistics;
     }
+
+    public static Employee[] employeeSalaryRanking(Employee[] employees) {
+
+        Employee[] rankedEmployees = employees.clone();
+
+        Comparator<Employee> ranking = Comparator.comparingDouble(Employee::getSalary).reversed().thenComparing(Employee::getEmployeeName);
+
+        Arrays.sort(rankedEmployees, ranking);
+
+        return rankedEmployees;
+    }
+
 }
 
 
