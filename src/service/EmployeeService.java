@@ -1,10 +1,9 @@
 package service;
 
-import dto.DashboardSummary;
+import dto.DepartmentSummary;
 import entity.Employee;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class EmployeeService {
@@ -99,30 +98,26 @@ public class EmployeeService {
         return maxSalaryEmp;
     }
 
-    public static void findEmployeesByDepartment(Employee[] employees, String department) {
-        boolean employeeFound = false;
+    public static Employee findEmployeesByDepartment(Employee[] employees, String department) {
         for (Employee employee : employees) {
             if (employee.getDepartment().equals(department)) {
-                employeeFound = true;
-                System.out.println(employee);
+                return employee;
             }
         }
-        if (!employeeFound) {
-            System.out.println("No employees found !");
-        }
+        return null;
     }
 
-    public static Map<String, DashboardSummary> employeeDepartmentSummary(Employee[] employees) {
+    public static Map<String, DepartmentSummary> employeeDepartmentSummary(Employee[] employees) {
 
-        Map<String, DashboardSummary> departmentSummary = new HashMap<>();
+        Map<String, DepartmentSummary> departmentSummary = new HashMap<>();
 
         for (Employee employee : employees) {
-
             if (!departmentSummary.containsKey(employee.getDepartment())) {
-                departmentSummary.put(employee.getDepartment(), new DashboardSummary(0, 0.00));
+                departmentSummary.put(employee.getDepartment(), new DepartmentSummary(0, 0.00));
             }
-            departmentSummary.put(employee.getDepartment(), new DashboardSummary(departmentSummary.get(employee.getDepartment()).getEmployeeCount() + 1, departmentSummary.get(employee.getDepartment()).getEmployeeSalary() + employee.getSalary()));
-
+            DepartmentSummary summary = departmentSummary.get(employee.getDepartment());
+            summary.setEmployeeCount(summary.getEmployeeCount() + 1);
+            summary.setTotalSalary(summary.getTotalSalary() + employee.getSalary());
         }
         return departmentSummary;
 
