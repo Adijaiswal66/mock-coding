@@ -74,6 +74,9 @@ public class Employee {
         this.yearsOfExperience = yearsOfExperience;
     }
 
+    public Employee() {
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

@@ -178,12 +178,20 @@ public class EmployeeService {
 
         if ((percentage > 0) && (percentage <= 100)) {
             for (int i = 0; i < employees.length; i++) {
-                employeeWithAdjustedSalary[i] = employees[i];
-                double salary = employeeWithAdjustedSalary[i].getSalary();
+                Employee employees1 = new Employee();
+                employees1.setEmployeeId(employees[i].getEmployeeId());
+                employees1.setEmployeeName(employees[i].getEmployeeName());
+                employees1.setRating(employees[i].getRating());
+                employees1.setDepartment(employees[i].getDepartment());
+                employees1.setEmployeeBonus(employees[i].getEmployeeBonus());
+
+                double salary = employees[i].getSalary();
 
                 salary = salary + (salary * percentage) / 100;
 
-                employeeWithAdjustedSalary[i].setSalary(salary);
+                employees1.setSalary(salary);
+
+                employeeWithAdjustedSalary[i] = employees1;
             }
         } else {
             throw new IllegalArgumentException("Please enter a valid percentage between 0 - 100");
