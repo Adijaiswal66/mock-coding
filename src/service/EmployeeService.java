@@ -165,12 +165,29 @@ public class EmployeeService {
         if (department == null) return filteredEmployees;
 
         for (Employee employee : employees) {
-            if (employee.getDepartment().equals(department)) {
+            if (employee.getDepartment().equalsIgnoreCase(department)) {
                 filteredEmployees.add(employee);
             }
         }
-
         return filteredEmployees;
+    }
+
+    public static Employee[] employeeSalaryAdjustment(Employee[] employees, double percentage) {
+
+        Employee[] employeeWithAdjustedSalary = employees.clone();
+
+        if ((percentage > 0) && (percentage < 100)) {
+            for (int i = 0; i < employees.length; i++) {
+                double salary = employees[i].getSalary();
+
+                salary = salary + (salary * percentage) / 100;
+
+                employeeWithAdjustedSalary[i].setSalary(salary);
+            }
+        } else {
+            throw new IllegalArgumentException("Please enter a valid percentage between 0 - 100");
+        }
+        return employeeWithAdjustedSalary;
 
     }
 

@@ -1,7 +1,9 @@
 import entity.Employee;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static service.EmployeeService.employeeSalaryAdjustment;
 import static service.EmployeeService.filterEmployeeByDepartment;
 
 public class Main {
@@ -20,11 +22,11 @@ public class Main {
 
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
-        List<Employee> employeeList = filterEmployeeByDepartment(employees, "IT");
-        if (employeeList.isEmpty()) {
-            System.out.println("No Employee found!");
-        } else {
-            System.out.println(employeeList);
+        try {
+            Employee[] salaryAdjustment = employeeSalaryAdjustment(employees, 187);
+            System.out.println(Arrays.toString(salaryAdjustment));
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
         }
 
     }
