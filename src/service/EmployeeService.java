@@ -174,11 +174,12 @@ public class EmployeeService {
 
     public static Employee[] employeeSalaryAdjustment(Employee[] employees, double percentage) {
 
-        Employee[] employeeWithAdjustedSalary = employees.clone();
+        Employee[] employeeWithAdjustedSalary = new Employee[employees.length];
 
-        if ((percentage > 0) && (percentage < 100)) {
+        if ((percentage > 0) && (percentage <= 100)) {
             for (int i = 0; i < employees.length; i++) {
-                double salary = employees[i].getSalary();
+                employeeWithAdjustedSalary[i] = employees[i];
+                double salary = employeeWithAdjustedSalary[i].getSalary();
 
                 salary = salary + (salary * percentage) / 100;
 

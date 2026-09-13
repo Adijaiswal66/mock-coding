@@ -23,7 +23,7 @@ public class Main {
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
         try {
-            Employee[] salaryAdjustment = employeeSalaryAdjustment(employees, 187);
+            Employee[] salaryAdjustment = employeeSalaryAdjustment(employees, 10);
             System.out.println(Arrays.toString(salaryAdjustment));
         } catch (IllegalArgumentException e) {
             System.out.println(e);
