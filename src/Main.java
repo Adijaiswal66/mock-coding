@@ -3,8 +3,7 @@ import entity.Employee;
 import java.util.Arrays;
 import java.util.List;
 
-import static service.EmployeeService.employeeSalaryAdjustment;
-import static service.EmployeeService.filterEmployeeByDepartment;
+import static service.EmployeeService.*;
 
 public class Main {
 
@@ -23,9 +22,9 @@ public class Main {
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
         try {
-            Employee[] salaryAdjustment = employeeSalaryAdjustment(employees, 10);
+            Employee[] salaryAdjustment = departmentBasedSalaryAdjustment(employees, "itii", 11);
             System.out.println(Arrays.toString(salaryAdjustment));
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
