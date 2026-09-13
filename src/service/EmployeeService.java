@@ -178,13 +178,7 @@ public class EmployeeService {
 
         if ((percentage > 0) && (percentage <= 100)) {
             for (int i = 0; i < employees.length; i++) {
-                Employee employees1 = new Employee();
-                employees1.setEmployeeId(employees[i].getEmployeeId());
-                employees1.setEmployeeName(employees[i].getEmployeeName());
-                employees1.setRating(employees[i].getRating());
-                employees1.setDepartment(employees[i].getDepartment());
-                employees1.setEmployeeBonus(employees[i].getEmployeeBonus());
-
+                Employee employees1 = new Employee(employees[i]);
                 double salary = employees[i].getSalary();
 
                 salary = salary + (salary * percentage) / 100;

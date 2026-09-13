@@ -74,6 +74,16 @@ public class Employee {
         this.yearsOfExperience = yearsOfExperience;
     }
 
+    public Employee(Employee employee) {
+        this.employeeId = employee.getEmployeeId();
+        this.employeeName = employee.getEmployeeName();
+        this.salary = employee.getSalary();
+        this.rating = employee.getRating();
+        this.department = employee.getDepartment();
+        this.employeeBonus = employee.getEmployeeBonus();
+        this.yearsOfExperience = employee.getYearsOfExperience();
+    }
+
     public Employee() {
     }
 
