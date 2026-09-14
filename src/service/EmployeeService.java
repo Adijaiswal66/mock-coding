@@ -263,6 +263,9 @@ public class EmployeeService {
         Map<String, List<Employee>> employeesByCategory = new HashMap<>();
 
         for (Employee employee : employees) {
+            if ((employee.getRating() < 1) || (employee.getRating() > 5)) {
+                throw new IllegalArgumentException("Rating should be between 1-5");
+            }
             if (employee.getRating() == 5) {
                 employeesByCategory.computeIfAbsent(("Excellent"), key -> new ArrayList<>())
                         .add(employee);
@@ -279,9 +282,7 @@ public class EmployeeService {
                 employeesByCategory.computeIfAbsent(("Poor"), key -> new ArrayList<>())
                         .add(employee);
             }
-            if ((employee.getRating() < 1) || (employee.getRating() > 5)) {
-                throw new IllegalArgumentException("Rating should be between 1-5");
-            }
+
         }
 
         return employeesByCategory;
