@@ -22,10 +22,10 @@ public class Main {
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
         try {
-            Employee[] salaryAdjustment = departmentBasedSalaryAdjustment(employees, null, 121);
-            System.out.println(Arrays.toString(salaryAdjustment));
+            List<Employee> employeeList = employeePromotionEligibility(employees);
+            System.out.println(employeeList);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
 
     }

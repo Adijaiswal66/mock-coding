@@ -197,7 +197,7 @@ public class EmployeeService {
         }
 
         if (department == null) {
-            throw new NullPointerException("Please enter a valid department!");
+            throw new IllegalArgumentException("Please enter a valid department!");
         }
 
         if ((percentage < 1) || (percentage > 100)) {
@@ -232,6 +232,26 @@ public class EmployeeService {
             }
         }
         return employeeWithAdjustedSalary;
+    }
+
+    public static List<Employee> employeePromotionEligibility(Employee[] employees) {
+        if (employees.length == 0) {
+            throw new NoSuchElementException("No employee found!");
+        }
+
+        List<Employee> eligibleEmployees = new ArrayList<>();
+
+        for (Employee employee : employees) {
+            if ((employee.getYearsOfExperience() >= 5) && (employee.getRating() >= 4) && (employee.getSalary() >= 500000)) {
+                eligibleEmployees.add(employee);
+            }
+        }
+
+        if (eligibleEmployees.isEmpty()) {
+            throw new NoSuchElementException("No employee is eligible for promotion!");
+        }
+
+        return eligibleEmployees;
     }
 
 }
