@@ -254,6 +254,42 @@ public class EmployeeService {
         return eligibleEmployees;
     }
 
+    public static Map<String, List<Employee>> employeePerformanceCategorization(Employee[] employees) {
+
+        if (employees.length == 0) {
+            throw new NoSuchElementException("No employee found!");
+        }
+
+        Map<String, List<Employee>> employeesByCategory = new HashMap<>();
+
+        for (Employee employee : employees) {
+            if (employee.getRating() == 5) {
+                List<Employee> employeeList = employeesByCategory.get("Excellent");
+                employeesByCategory.computeIfAbsent(("Excellent"), key -> new ArrayList<>())
+                        .add(employee);
+            } else if (employee.getRating() == 4) {
+                List<Employee> employeeList = employeesByCategory.get("Good");
+                employeesByCategory.computeIfAbsent(("Good"), key -> new ArrayList<>())
+                        .add(employee);
+            } else if (employee.getRating() == 3) {
+                List<Employee> employeeList = employeesByCategory.get("Average");
+                employeesByCategory.computeIfAbsent(("Average"), key -> new ArrayList<>())
+                        .add(employee);
+            } else if (employee.getRating() == 2) {
+                List<Employee> employeeList = employeesByCategory.get("Below Average");
+                employeesByCategory.computeIfAbsent(("Below Average"), key -> new ArrayList<>())
+                        .add(employee);
+            } else if (employee.getRating() == 1) {
+                List<Employee> employeeList = employeesByCategory.get("Poor");
+                employeesByCategory.computeIfAbsent(("Poor"), key -> new ArrayList<>())
+                        .add(employee);
+            }
+        }
+
+        return employeesByCategory;
+
+    }
+
 }
 
 

@@ -2,6 +2,7 @@ import entity.Employee;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static service.EmployeeService.*;
 
@@ -22,7 +23,7 @@ public class Main {
         Employee[] employees = {employee1, employee2, employee3, employee4, employee5};
 
         try {
-            List<Employee> employeeList = employeePromotionEligibility(employees);
+            Map<String, List<Employee>> employeeList = employeePerformanceCategorization(employees);
             System.out.println(employeeList);
         } catch (Exception e) {
             System.out.println(e.getMessage());
