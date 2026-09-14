@@ -192,39 +192,46 @@ public class EmployeeService {
 
     public static Employee[] departmentBasedSalaryAdjustment(Employee[] employees, String department, double percentage) {
 
+        if (employees.length == 0) {
+            throw new NoSuchElementException("No employee found!");
+        }
+
+        if (department == null) {
+            throw new NullPointerException("Please enter a valid department!");
+        }
+
+        if ((percentage < 1) || (percentage > 100)) {
+            throw new IllegalArgumentException("Please enter a valid percentage between 0 - 100");
+        }
+
         Employee[] employeeWithAdjustedSalary = new Employee[employees.length];
 
         boolean departmentExists = false;
 
         for (Employee employee : employees) {
-            if (employee.getDepartment().equalsIgnoreCase(department)) {
+            if ((employee.getDepartment().equalsIgnoreCase(department))) {
                 departmentExists = true;
                 break;
             }
         }
+
         if (!departmentExists) {
             throw new NoSuchElementException("No such department exists!");
         }
 
-        if ((department != null) && (percentage > 0) && (percentage <= 100)) {
-            for (int i = 0; i < employees.length; i++) {
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].getDepartment().equalsIgnoreCase(department)) {
                 Employee employees1 = new Employee(employees[i]);
-                if (employees[i].getDepartment().equalsIgnoreCase(department)) {
-                    double salary = employees[i].getSalary();
-                    salary = salary + (salary * percentage) / 100;
-                    employees1.setSalary(salary);
-                }
+                double salary = employees[i].getSalary();
+                salary = salary + (salary * percentage) / 100;
+                employees1.setSalary(salary);
+                employeeWithAdjustedSalary[i] = employees1;
+            } else {
+                Employee employees1 = new Employee(employees[i]);
                 employeeWithAdjustedSalary[i] = employees1;
             }
-        } else if (employees.length == 0) {
-            throw new NoSuchElementException("No employee found!");
-        } else if ((percentage < 0) || (percentage > 100)) {
-            throw new IllegalArgumentException("Please enter a valid percentage between 0 - 100");
-        } else if (department == null) {
-            throw new IllegalArgumentException("Please enter a valid department");
         }
         return employeeWithAdjustedSalary;
-
     }
 
 }
