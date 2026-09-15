@@ -1,14 +1,15 @@
 package com.aditya.mockcoding.service;
 
+import com.aditya.mockcoding.dto.EmployeePageResponseDto;
+import com.aditya.mockcoding.dto.EmployeeResponseDto;
 import com.aditya.mockcoding.entity.Employee;
-import com.aditya.mockcoding.exception.InvalidEmployeeException;
 import com.aditya.mockcoding.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class EmployeeService {
@@ -19,46 +20,46 @@ public class EmployeeService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
-    }
+    public List<EmployeeResponseDto> getAllEmployees() {
 
-    public Employee getEmployeeById(Long employeeId) {
-        return employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new InvalidEmployeeException(
-                        "Employee not found with id: " + employeeId));
-    }
-
-    public Map<String, List<Employee>> categorizeByPerformance() {
         List<Employee> employees = employeeRepository.findAll();
 
-        if (employees.isEmpty()) {
-            throw new InvalidEmployeeException("No employees found");
-        }
+        return employees.stream()
+                .map(this::toDto)
+                .toList();
+    }
 
-        Map<String, List<Employee>> result = new LinkedHashMap<>();
+    private EmployeeResponseDto toDto(Employee employee) {
+        return new EmployeeResponseDto(
+                employee.getId(),
+                employee.getEmployeeCode(),
+                employee.getFirstName(),
+                employee.getLastName(),
+                employee.getEmail(),
+                employee.getDepartment(),
+                employee.getDesignation(),
+                employee.getSalary(),
+                employee.getJoiningDate(),
+                employee.getEmploymentStatus(),
+                employee.getLocation()
+        );
+    }
 
-        // Validate first so an invalid record cannot leave a partially-built result.
-        for (Employee employee : employees) {
-            if (employee.getRating() < 1 || employee.getRating() > 5) {
-                throw new InvalidEmployeeException(
-                        "Rating should be between 1 and 5 for employee: " + employee.getEmployeeId());
-            }
-        }
+    public EmployeePageResponseDto getEmployees(int page, int size) {
 
-        for (Employee employee : employees) {
-            String category = switch (employee.getRating()) {
-                case 5 -> "Excellent";
-                case 4 -> "Good";
-                case 3 -> "Average";
-                case 2 -> "Below Average";
-                case 1 -> "Poor";
-                default -> throw new IllegalStateException("Unexpected rating");
-            };
+        Pageable pageable = PageRequest.of(page, size);
 
-            result.computeIfAbsent(category, key -> new ArrayList<>()).add(employee);
-        }
+        Page<Employee> employees = employeeRepository.findAll(pageable);
 
-        return result;
+        EmployeePageResponseDto employeePageResponseDto = new EmployeePageResponseDto();
+        employeePageResponseDto.setEmployeeResponseDto(employees.getContent().stream().map(this::toDto).toList());
+        employeePageResponseDto.setPageNumber(employees.getPageable().getPageNumber());
+        employeePageResponseDto.setPageSize(employees.getPageable().getPageSize());
+        employeePageResponseDto.setLast(employees.isLast());
+        employeePageResponseDto.setTotalPages(employees.getTotalPages());
+        employeePageResponseDto.setFirst(employees.isFirst());
+        employeePageResponseDto.setTotalElements(employees.getTotalElements());
+
+        return employeePageResponseDto;
     }
 }

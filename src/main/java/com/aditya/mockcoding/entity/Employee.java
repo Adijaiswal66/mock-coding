@@ -1,56 +1,59 @@
 package com.aditya.mockcoding.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "employees")
+@Getter
+@Setter
 public class Employee {
 
-    private Long employeeId;
-    private String employeeName;
-    private double salary;
-    private int rating;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "employee_code", nullable = false, unique = true)
+    private String employeeCode;
+
+    @Column(name = "first_name", nullable = false)
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false)
+    private String lastName;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
     private String department;
-    private int yearsOfExperience;
-    private double employeeBonus;
 
-    public Employee() {
-    }
+    @Column(nullable = false)
+    private String designation;
 
-    public Employee(Long employeeId, String employeeName, double salary, int rating,
-                     String department, int yearsOfExperience) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.salary = salary;
-        this.rating = rating;
-        this.department = department;
-        this.yearsOfExperience = yearsOfExperience;
-    }
+    @Column(nullable = false)
+    private BigDecimal salary;
 
-    public Employee(Employee employee) {
-        this.employeeId = employee.employeeId;
-        this.employeeName = employee.employeeName;
-        this.salary = employee.salary;
-        this.rating = employee.rating;
-        this.department = employee.department;
-        this.yearsOfExperience = employee.yearsOfExperience;
-        this.employeeBonus = employee.employeeBonus;
-    }
+    @Column(name = "joining_date", nullable = false)
+    private LocalDate joiningDate;
 
-    public Long getEmployeeId() { return employeeId; }
-    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
+    @Column(name = "employment_status", nullable = false)
+    private String employmentStatus;
 
-    public String getEmployeeName() { return employeeName; }
-    public void setEmployeeName(String employeeName) { this.employeeName = employeeName; }
+    @Column(nullable = false)
+    private String location;
 
-    public double getSalary() { return salary; }
-    public void setSalary(double salary) { this.salary = salary; }
+    @Column(name = "manager_id")
+    private Long managerId;
 
-    public int getRating() { return rating; }
-    public void setRating(int rating) { this.rating = rating; }
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    public String getDepartment() { return department; }
-    public void setDepartment(String department) { this.department = department; }
-
-    public int getYearsOfExperience() { return yearsOfExperience; }
-    public void setYearsOfExperience(int yearsOfExperience) { this.yearsOfExperience = yearsOfExperience; }
-
-    public double getEmployeeBonus() { return employeeBonus; }
-    public void setEmployeeBonus(double employeeBonus) { this.employeeBonus = employeeBonus; }
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }
