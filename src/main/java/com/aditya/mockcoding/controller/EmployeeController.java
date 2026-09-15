@@ -2,8 +2,11 @@ package com.aditya.mockcoding.controller;
 
 import com.aditya.mockcoding.dto.EmployeePageResponseDto;
 import com.aditya.mockcoding.dto.EmployeeResponseDto;
+import com.aditya.mockcoding.dto.PaginationRequest;
 import com.aditya.mockcoding.service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +29,8 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/all-emp")
-    public ResponseEntity<EmployeePageResponseDto> getEmployees(@RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "20") int size) {
-        return ResponseEntity.ok(employeeService.getEmployees(page, size));
+    public ResponseEntity<EmployeePageResponseDto> getEmployees(@Valid PaginationRequest paginationRequest) {
+        return ResponseEntity.ok(employeeService.getEmployees(paginationRequest.getPage(), paginationRequest.getSize()));
     }
 
 }

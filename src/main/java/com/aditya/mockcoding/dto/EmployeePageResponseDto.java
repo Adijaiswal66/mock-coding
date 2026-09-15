@@ -3,7 +3,6 @@ package com.aditya.mockcoding.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
