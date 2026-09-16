@@ -1,6 +1,5 @@
 package com.aditya.mockcoding.dto;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -16,6 +15,6 @@ public class PaginationRequest {
 
     @Positive(message = "Please enter a valid size")
     @Max(100)
-    private int size;
+    private int size = 20;
 
 }

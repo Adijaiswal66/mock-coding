@@ -24,12 +24,11 @@ public class EmployeeController {
 
     @GetMapping("/all-employees")
     public List<EmployeeResponseDto> getAllEmployees() {
-
         return employeeService.getAllEmployees();
     }
 
     @GetMapping(value = "/all-emp")
-    public ResponseEntity<EmployeePageResponseDto> getEmployees(@Valid PaginationRequest paginationRequest) {
+    public ResponseEntity<EmployeePageResponseDto> getEmployees(@Valid @ModelAttribute PaginationRequest paginationRequest) {
         return ResponseEntity.ok(employeeService.getEmployees(paginationRequest.getPage(), paginationRequest.getSize()));
     }
 
