@@ -3,8 +3,6 @@ package com.aditya.mockcoding.exception;
 import com.aditya.mockcoding.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +13,6 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -50,6 +47,13 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleHttpMessageNotAvailable(HttpMessageNotReadableException exception) {
         return new ErrorResponse(Instant.now(), 400, "Invalid input format. Please ensure to enter whole numbers", null);
-
     }
+
+
+    @ExceptionHandler(InvalidPaginationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse invalidPaginationException(InvalidPaginationException exception) {
+        return new ErrorResponse(Instant.now(), 400, exception.getMessage(), null);
+    }
+
 }

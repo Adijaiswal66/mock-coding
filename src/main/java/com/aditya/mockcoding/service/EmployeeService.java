@@ -3,6 +3,7 @@ package com.aditya.mockcoding.service;
 import com.aditya.mockcoding.dto.EmployeePageResponseDto;
 import com.aditya.mockcoding.dto.EmployeeResponseDto;
 import com.aditya.mockcoding.entity.Employee;
+import com.aditya.mockcoding.exception.InvalidPaginationException;
 import com.aditya.mockcoding.repository.EmployeeRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,6 +60,10 @@ public class EmployeeService {
         employeePageResponseDto.setTotalPages(employees.getTotalPages());
         employeePageResponseDto.setFirst(employees.isFirst());
         employeePageResponseDto.setTotalElements(employees.getTotalElements());
+
+        if ((page >= employeePageResponseDto.getTotalPages()) || (page < 0)) {
+            throw new InvalidPaginationException("Requested page is not available");
+        }
 
         return employeePageResponseDto;
     }
