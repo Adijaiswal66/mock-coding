@@ -4,6 +4,7 @@ import com.aditya.mockcoding.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -28,25 +31,19 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleValidationFailures(MethodArgumentNotValidException exception) {
-
-        Map<String, String> errors = exception.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .collect(Collectors.toMap(
-                        FieldError::getField,
-                        fieldError -> fieldError.getDefaultMessage() == null ? "Invalid value" : fieldError.getDefaultMessage(),
-                        (existingValue, newValue) -> existingValue + ", " + newValue
-                ));
-
-        return new ErrorResponse(
-                Instant.now(),
-                400,
-                "Validation Failed", // Generic message informing what went wrong
-                errors               // The detailed field-by-field map
-        );
+    public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+        Map<String, String> errors = new HashMap<>();
+        List<FieldError> fieldError = exception.getBindingResult().getFieldErrors();
+        for (FieldError error : fieldError) {
+            if (error.isBindingFailure()) {
+                errors.put(error.getField(), "Please enter a valid integer");
+            } else {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+        }
+        return new ErrorResponse(Instant.now(), 400, "Please enter a valid input", errors);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
