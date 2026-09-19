@@ -49,15 +49,16 @@ public class EmployeeService {
     public EmployeePageResponseDto getEmployees(int page, int size) {
 
         Pageable pageable = PageRequest.of(page, size);
-        EmployeePageResponseDto employeePageResponseDto = new EmployeePageResponseDto();
-        if (page >= employeePageResponseDto.getTotalPages()) {
-            throw new InvalidPaginationException("Requested page is not available");
-        }
         Page<Employee> employees = employeeRepository.findAll(pageable);
 
+        if (page >= employees.getTotalPages()) {
+            throw new InvalidPaginationException("Requested page is not available");
+        }
+        EmployeePageResponseDto employeePageResponseDto = new EmployeePageResponseDto();
+
         employeePageResponseDto.setEmployeeResponseDto(employees.getContent().stream().map(this::toDto).toList());
-        employeePageResponseDto.setPageNumber(employees.getPageable().getPageNumber());
-        employeePageResponseDto.setPageSize(employees.getPageable().getPageSize());
+        employeePageResponseDto.setPageNumber(employees.getNumber());
+        employeePageResponseDto.setPageSize(employees.getSize());
         employeePageResponseDto.setLast(employees.isLast());
         employeePageResponseDto.setTotalPages(employees.getTotalPages());
         employeePageResponseDto.setFirst(employees.isFirst());
