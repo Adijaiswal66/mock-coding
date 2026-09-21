@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -54,6 +55,12 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse invalidPaginationException(InvalidPaginationException exception) {
         return new ErrorResponse(Instant.now(), 400, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleNoSuchElementException(NoSuchElementException exception) {
+        return new ErrorResponse(Instant.now(), 404, "User does not exist", null);
     }
 
 }
