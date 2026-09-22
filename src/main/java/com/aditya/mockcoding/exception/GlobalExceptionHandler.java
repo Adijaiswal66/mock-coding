@@ -63,4 +63,9 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(Instant.now(), 404, "User does not exist", null);
     }
 
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
+        return new ErrorResponse(Instant.now(), 208, exception.getMessage(), null);
+    }
 }
