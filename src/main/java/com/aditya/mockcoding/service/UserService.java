@@ -6,6 +6,7 @@ import com.aditya.mockcoding.entity.Employee;
 import com.aditya.mockcoding.entity.Role;
 import com.aditya.mockcoding.entity.UserAccount;
 import com.aditya.mockcoding.exception.UserAlreadyExistsException;
+import com.aditya.mockcoding.exception.UserNotFoundException;
 import com.aditya.mockcoding.repository.EmployeeRepository;
 import com.aditya.mockcoding.repository.UserAccountRepository;
 import jakarta.transaction.Transactional;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.openmbean.KeyAlreadyExistsException;
 import java.time.Instant;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -45,7 +45,7 @@ public class UserService {
     public String registerUser(AccountActivationRequest accountActivationRequest) {
         Optional<Employee> employeeExists = employeeRepository.findById(accountActivationRequest.employeeId());
         if (employeeExists.isEmpty()) {
-            throw new NoSuchElementException();
+            throw new UserNotFoundException("User does not exists");
         }
 
         Optional<UserAccount> userAccountRepositoryById = userAccountRepository.findByEmployeeId(accountActivationRequest.employeeId());

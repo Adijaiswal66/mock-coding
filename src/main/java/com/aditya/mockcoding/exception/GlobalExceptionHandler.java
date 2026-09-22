@@ -50,7 +50,6 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(Instant.now(), 400, "Invalid input format. Please ensure to enter whole numbers", null);
     }
 
-
     @ExceptionHandler(InvalidPaginationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse invalidPaginationException(InvalidPaginationException exception) {
@@ -64,8 +63,14 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserAlreadyExistsException.class)
-    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
         return new ErrorResponse(Instant.now(), 208, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleEmployeeNotFoundException(UserNotFoundException exception) {
+        return new ErrorResponse(Instant.now(),404, exception.getMessage(), null);
     }
 }
