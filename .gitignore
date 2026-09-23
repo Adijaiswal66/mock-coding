@@ -4,6 +4,7 @@ target/
 !**/src/main/**/out/
 !**/src/test/**/out/
 postman/
+.postman
 
 ### Eclipse ###
 .apt_generated

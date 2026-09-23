@@ -51,6 +51,10 @@ public class Employee {
     @Column(name = "manager_id")
     private Long managerId;
 
+    @Version
+    @Column(nullable = false)
+    private Long version;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

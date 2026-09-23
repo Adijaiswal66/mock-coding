@@ -1,12 +1,9 @@
 package com.aditya.mockcoding.controller;
 
-import com.aditya.mockcoding.dto.EmployeePageResponseDto;
-import com.aditya.mockcoding.dto.EmployeeResponseDto;
-import com.aditya.mockcoding.dto.PaginationRequest;
+import com.aditya.mockcoding.dto.*;
 import com.aditya.mockcoding.service.EmployeeService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +27,27 @@ public class EmployeeController {
     @GetMapping(value = "/all-emp")
     public ResponseEntity<EmployeePageResponseDto> getEmployees(@Valid @ModelAttribute PaginationRequest paginationRequest) {
         return ResponseEntity.ok(employeeService.getEmployees(paginationRequest.getPage(), paginationRequest.getSize()));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeResponseDto> getEmployeeById(@PathVariable Long id) {
+        return ResponseEntity.ok(employeeService.getEmployeeById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<EmployeeResponseDto> createEmployee(@RequestBody @Valid EmployeeRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.createEmployee(request));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeResponseDto> updateEmployee(@PathVariable Long id, @RequestBody @Valid EmployeeUpdateRequest request) {
+        return ResponseEntity.ok(employeeService.updateEmployee(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteEmployee(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

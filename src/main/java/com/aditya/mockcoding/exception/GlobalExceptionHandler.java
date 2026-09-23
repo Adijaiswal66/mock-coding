@@ -85,4 +85,10 @@ public class GlobalExceptionHandler {
     public ErrorResponse handleInvalidCredentialException(InvalidCredentialsException exception) {
         return new ErrorResponse(Instant.now(), 401, exception.getMessage(), null);
     }
+
+    @ExceptionHandler(EmployeeVersionConflictException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleEmployeeVersionConflictException(EmployeeVersionConflictException exception) {
+        return new ErrorResponse(Instant.now(), 401, exception.getMessage(), null);
+    }
 }

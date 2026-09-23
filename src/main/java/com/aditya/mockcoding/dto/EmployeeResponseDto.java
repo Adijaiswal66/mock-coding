@@ -2,6 +2,7 @@ package com.aditya.mockcoding.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public record EmployeeResponseDto(
         Long id,
@@ -14,6 +15,10 @@ public record EmployeeResponseDto(
         BigDecimal salary,
         LocalDate joiningDate,
         String employmentStatus,
-        String location
+        String location,
+        Long managerId,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
+        Long version
 ) {
 }
