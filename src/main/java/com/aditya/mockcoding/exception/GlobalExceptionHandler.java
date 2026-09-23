@@ -65,12 +65,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleUserAlreadyExistsException(UserAlreadyExistsException exception) {
-        return new ErrorResponse(Instant.now(), 208, exception.getMessage(), null);
+        return new ErrorResponse(Instant.now(), 409, exception.getMessage(), null);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleEmployeeNotFoundException(UserNotFoundException exception) {
-        return new ErrorResponse(Instant.now(),404, exception.getMessage(), null);
+        return new ErrorResponse(Instant.now(), 404, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(UserAccountDisabledException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleUserAccountDisabledException(UserNotFoundException exception) {
+        return new ErrorResponse(Instant.now(), 403, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handleInvalidCredentialException(InvalidCredentialsException exception) {
+        return new ErrorResponse(Instant.now(), 401, exception.getMessage(), null);
     }
 }

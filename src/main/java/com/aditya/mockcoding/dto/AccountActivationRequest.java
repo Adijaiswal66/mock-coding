@@ -6,9 +6,8 @@ import jakarta.validation.constraints.Positive;
 
 public record AccountActivationRequest(
 
-        @NotNull(message = "Employee id can not be null")
-        @Positive(message = "Employee id must be a positive whole number")
-        Long employeeId,
+        @NotBlank(message = "Employee code can not be blank")
+        String employeeCode,
 
         @NotNull(message = "Password can not be null")
         @NotBlank(message = "Password can not be blank")

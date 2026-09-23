@@ -1,6 +1,8 @@
 package com.aditya.mockcoding.controller;
 
 import com.aditya.mockcoding.dto.AccountActivationRequest;
+import com.aditya.mockcoding.dto.LoginRequest;
+import com.aditya.mockcoding.dto.LoginResponse;
 import com.aditya.mockcoding.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +26,13 @@ public class UserController {
         String registerUser = userService.registerUser(accountActivationRequest);
         return new ResponseEntity<>("User registered successfully!", HttpStatus.CREATED);
     }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<LoginResponse> loginUser(@RequestBody @Valid LoginRequest loginRequest) {
+        LoginResponse loginResponse = userService.loginUser(loginRequest);
+        return ResponseEntity.ok(loginResponse);
+    }
+
+    ;
 
 }

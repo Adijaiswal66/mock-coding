@@ -1,4 +1,7 @@
 $kind: http-request
-url: ""
+url: http://localhost:8080/api/employees/all-emp?page=1&size=20
 method: GET
+queryParams:
+  page: "1"
+  size: "20"
 order: 1789986386032

@@ -3,6 +3,7 @@ out/
 target/
 !**/src/main/**/out/
 !**/src/test/**/out/
+postman/
 
 ### Eclipse ###
 .apt_generated
