@@ -126,10 +126,6 @@ public class EmployeeService {
                 .orElseThrow(() ->
                         new UserNotFoundException("Employee not found"));
 
-        if (!Objects.equals(request.version(), employee.getVersion())) {
-            throw new EmployeeVersionConflictException("Employee was modified by another administrator. Refresh and retry.");
-        }
-
         employee.setEmployeeCode(request.employeeCode());
         employee.setFirstName(request.firstName());
         employee.setLastName(request.lastName());

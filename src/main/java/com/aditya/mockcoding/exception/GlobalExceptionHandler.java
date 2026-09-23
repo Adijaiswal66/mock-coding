@@ -3,6 +3,7 @@ package com.aditya.mockcoding.exception;
 import com.aditya.mockcoding.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -76,7 +77,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserAccountDisabledException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse handleUserAccountDisabledException(UserNotFoundException exception) {
+    public ErrorResponse handleUserAccountDisabledException(UserAccountDisabledException exception) {
         return new ErrorResponse(Instant.now(), 403, exception.getMessage(), null);
     }
 
@@ -89,6 +90,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmployeeVersionConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleEmployeeVersionConflictException(EmployeeVersionConflictException exception) {
-        return new ErrorResponse(Instant.now(), 401, exception.getMessage(), null);
+        return new ErrorResponse(Instant.now(), 409, exception.getMessage(), null);
+    }
+
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleOptimisticLock(ObjectOptimisticLockingFailureException exception) {
+        return new ErrorResponse(
+                Instant.now(),
+                409,
+                "Employee was modified by another user. Please refresh and retry.",
+                null
+        );
     }
 }
