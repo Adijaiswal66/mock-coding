@@ -5,7 +5,6 @@ import com.aditya.mockcoding.dto.EmployeeRequest;
 import com.aditya.mockcoding.dto.EmployeeResponseDto;
 import com.aditya.mockcoding.dto.EmployeeUpdateRequest;
 import com.aditya.mockcoding.entity.Employee;
-import com.aditya.mockcoding.exception.EmployeeVersionConflictException;
 import com.aditya.mockcoding.exception.InvalidPaginationException;
 import com.aditya.mockcoding.exception.UserAlreadyExistsException;
 import com.aditya.mockcoding.exception.UserNotFoundException;
@@ -18,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class EmployeeService {
