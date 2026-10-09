@@ -25,7 +25,6 @@ const theme = createTheme({
 });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -34,5 +33,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </BrowserRouter>
       </ThemeProvider>
     </ErrorBoundary>
-  </React.StrictMode>,
 );
